@@ -9,4 +9,13 @@ defmodule Tetro do
     %__MODULE__{shape: shape}    
   end
 
+  def down(tetro) do
+    %{tetro| position: Point.down(tetro.position)}
+  end
+  def left(tetro) do
+    %{tetro| position: Point.left(tetro.position)}
+  end
+  def right(tetro) do
+    %{tetro| position: Point.right(tetro.position)}
+  end
 end
