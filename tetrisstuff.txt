@@ -1,0 +1,41 @@
+Want:
+rotate 90
+rotate 270
+
+rotate 0
+  1 2 3 4
+1
+2   x x x
+3     x
+4
+
+point |> transpose |> flip 
+rotate 90   |   transpose    |    flip
+  1 2 3 4        1 2 3 4         1 2 3 4
+1              1               1
+2     x        2     x         2   x x x
+3   x x        3   x x x       3     x
+4     x        4               4
+
+rotate 180
+  1 2 3 4
+1   
+2   x
+3 x x x
+4     
+
+rotate 270   |   transpose    |   flop
+  1 2 3 4        1 2 3 4         1 2 3 4
+1   x          1               1
+2   x x        2 x x x         2   x x x
+3   x          3   x           3     x
+4              4               4
+
+
+rotate 270 => point |> rotate 90 |> rotate 180
+
+Know:
+flop
+flip
+transpose (flip diagonally)
+rotate 180 => point |> flip |> flop
