@@ -19,3 +19,4 @@ defmodule Point do
 
   defp transpose({x, y}), do: {y, x}
 end
+
