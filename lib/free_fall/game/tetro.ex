@@ -24,4 +24,9 @@ defmodule Tetro do
   def convert(tetro) do
     {tetro.shape, tetro.rotation, tetro.position}
   end
+
+  def rotate(tetro) do 
+    %{tetro| position: Point.rotate90(tetro.position), rotation: rem(tetro.rotation+90,360)}
+  end
+
 end
