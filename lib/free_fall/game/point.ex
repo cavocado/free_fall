@@ -17,6 +17,6 @@ defmodule Point do
 
   def rotate270(point), do: point |> transpose |> flop
 
-  defp transpose({x, y}), do: {y, x}
+  def transpose({x, y}), do: {y, x}
 end
 

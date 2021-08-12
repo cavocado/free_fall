@@ -12,10 +12,17 @@ defmodule Tetro do
   def down(tetro) do
     %{tetro| position: Point.down(tetro.position)}
   end
+
   def left(tetro) do
     %{tetro| position: Point.left(tetro.position)}
   end
+
   def right(tetro) do
     %{tetro| position: Point.right(tetro.position)}
   end
+
+  def rotate(tetro) do 
+    %{tetro| position: Point.rotate90(tetro.position), rotation: rem(tetro.rotation+90,360)}
+  end
+
 end
