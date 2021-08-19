@@ -28,16 +28,12 @@ defmodule Free_Fall.Game.Shape do
   end
 
   def to_string(points) do
-    list = for i <- 1..4, j <- 1..4, do: helper({j, i}, points)
+    list = for y <- 1..4, x <- 1..4, do: to_character({x, y}, points)
     List.to_string(list)
   end
 
-  defp helper({x, _y} = point, points) do
-    in_list =
-      case Enum.find_value(points, fn x -> x == point end) do
-        true -> true
-        nil -> false
-      end
+  defp to_character({x, _y} = point, points) do
+    in_list = !!Enum.find_value(points, fn x -> x == point end)
 
     cond do
       in_list and x == 4 -> "*\n"
