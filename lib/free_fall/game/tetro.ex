@@ -30,3 +30,13 @@ defmodule Tetro do
   end
 
 end
+
+defimpl Inspect, for: Tetro do
+  alias Free_Fall.Game.Shape
+  def inspect(tetro, _opts) do
+    tetro
+    |> Map.get(:shape)
+    |> Shape.new
+    |> Shape.to_string
+  end
+end
