@@ -1,5 +1,7 @@
-defmodule Tetro do
-  defstruct [shape: :l, position: {5, 1}, rotation: 0]
+defmodule FreeFall.Game.Tetro do
+  defstruct shape: :l, position: {5, 1}, rotation: 0
+
+  alias FreeFall.Game.Point
 
   def new do
     %__MODULE__{}
@@ -25,18 +27,18 @@ defmodule Tetro do
     {tetro.shape, tetro.rotation, tetro.position}
   end
 
-  def rotate(tetro) do 
-    %{tetro| position: Point.rotate90(tetro.position), rotation: rem(tetro.rotation+90,360)}
+  def rotate(tetro) do
+    %{tetro | position: Point.rotate90(tetro.position), rotation: rem(tetro.rotation + 90, 360)}
   end
-
 end
 
 defimpl Inspect, for: Tetro do
-  alias Free_Fall.Game.Shape
+  alias FreeFall.Game.Shape
+
   def inspect(tetro, _opts) do
     tetro
     |> Map.get(:shape)
-    |> Shape.new
-    |> Shape.to_string
+    |> Shape.new()
+    |> Shape.to_string()
   end
 end

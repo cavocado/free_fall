@@ -1,5 +1,6 @@
 defmodule PointTest do
   use ExUnit.Case
+  alias FreeFall.Game.Point
 
   test "Tests a new Point" do
     # given
