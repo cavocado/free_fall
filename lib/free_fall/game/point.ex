@@ -1,4 +1,4 @@
-defmodule Point do
+defmodule FreeFall.Game.Point do
   def new(x, y), do: {x, y}
 
   def left({x, y}), do: {x - 1, y}

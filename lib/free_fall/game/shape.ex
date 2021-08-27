@@ -1,4 +1,4 @@
-defmodule Free_Fall.Game.Shape do
+defmodule FreeFall.Game.Shape do
   def new(:o) do
     [{2, 2}, {3, 2}, {2, 3}, {3, 3}]
   end
