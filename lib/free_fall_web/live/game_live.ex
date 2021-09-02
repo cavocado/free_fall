@@ -5,7 +5,12 @@ defmodule FreeFallWeb.GameLive do
   def render(assigns) do
     ~L"""
     <%=@hello%>
-    <canvas id="Canvas" width=400 height=400 style="border:2px solid"></canvas>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect id="square" x="100" width="10" height="10" fill="red" />
+    <rect id="square" x="100" y="10" width="10" height="10" fill="red" />
+    <rect id="square" x="100" y="20" width="10" height="10" fill="red" />
+    <rect id="square" x="90" y="20" width="10" height="10" fill="red" />
+    </svg>
     """
   end
 
