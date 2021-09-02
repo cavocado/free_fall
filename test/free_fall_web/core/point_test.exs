@@ -38,7 +38,7 @@ defmodule PointTest do
     point = Point.new(1, 1)
     expected = {4, 1}
 
-    calculated = Point.rotate90(point)
+    calculated = Point.rotate(point, 90)
 
     assert expected == calculated
   end
@@ -47,7 +47,7 @@ defmodule PointTest do
     point = Point.new(4, 1)
     expected = {1, 4}
 
-    calculated = Point.rotate180(point)
+    calculated = Point.rotate(point, 180)
 
     assert expected == calculated
   end
@@ -56,7 +56,7 @@ defmodule PointTest do
     point = Point.new(1, 4)
     expected = {4, 4}
 
-    calculated = Point.rotate270(point)
+    calculated = Point.rotate(point, 270)
 
     assert expected == calculated
   end
