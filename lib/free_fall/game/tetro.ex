@@ -28,7 +28,7 @@ defmodule FreeFall.Game.Tetro do
   end
 
   def rotate(tetro) do
-    %{tetro | position: Point.rotate90(tetro.position), rotation: rem(tetro.rotation + 90, 360)}
+    %{tetro | rotation: rem(tetro.rotation + 90, 360)}
   end
 end
 

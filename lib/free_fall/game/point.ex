@@ -11,11 +11,10 @@ defmodule FreeFall.Game.Point do
 
   defp flop({x, y}), do: {5 - x, y}
 
-  def rotate90(point), do: point |> transpose |> flop
-
-  def rotate180(point), do: point |> flip |> flop
-
-  def rotate270(point), do: point |> transpose |> flip
+  def rotate(point, 0), do: point
+  def rotate(point, 90), do: point |> transpose |> flop
+  def rotate(point, 180), do: point |> flip |> flop
+  def rotate(point, 270), do: point |> transpose |> flip
 
   defp transpose({x, y}), do: {y, x}
 end

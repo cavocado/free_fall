@@ -1,4 +1,12 @@
 defmodule FreeFall.Game.Shape do
+  alias FreeFall.Game.Point
+
+  def from_tetro(tetro) do
+    new(tetro.shape)
+    |> rotate(tetro.rotation)
+    |> move(tetro.position)
+  end
+
   def new(:o) do
     [{2, 2}, {3, 2}, {2, 3}, {3, 3}]
   end
@@ -25,6 +33,14 @@ defmodule FreeFall.Game.Shape do
 
   def new(:j) do
     [{3, 1}, {3, 2}, {2, 3}, {3, 3}]
+  end
+
+  defp rotate(shape, rotation) do
+    Enum.map(shape, fn point -> Point.rotate(point, rotation) end)
+  end
+
+  defp move(shape, {x, y} = _position) do
+    Enum.map(shape, fn {a, b} -> {a + x - 1, b + y - 1} end)
   end
 
   def to_string(points) do
