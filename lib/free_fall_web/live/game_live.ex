@@ -16,12 +16,19 @@ defmodule FreeFallWeb.GameLive do
     <rect id="square" x="100" y="20" width="10" height="10" fill="red" />
     <rect id="square" x="90" y="20" width="10" height="10" fill="red" />
     </svg>
-
+    <button phx-click="left">Left</button>
+    <button phx-click="rotate">Rotate</button>
+    <button phx-click="right">Right</button>
     """
   end
 
   @impl true
   def mount(_params, _session, socket) do
     {:ok, assign(socket, tetro: Tetro.new(:j))}
+  end
+
+  @impl true
+  def handle_event("left", _value, %{assigns: %{tetro: tetro}} = socket) do
+    {:noreply, assign(socket, tetro: Tetro.left(tetro))}
   end
 end
