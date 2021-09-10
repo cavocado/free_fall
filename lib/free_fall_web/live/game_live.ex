@@ -28,9 +28,7 @@ defmodule FreeFallWeb.GameLive do
   end
 
   @impl true
-  def handle_event("left", _value, socket) do
-    # pattern match on socket to get tetro
-    %{assigns: %{tetro: tetro}} = socket
+  def handle_event("left", _value, %{assigns: %{tetro: tetro}} = socket) do
     {:noreply, assign(socket, tetro: Tetro.left(tetro))}
   end
 end
