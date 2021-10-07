@@ -4,7 +4,8 @@ defmodule FreeFall.Game.Shape do
   def from_tetro(tetro) do
     new(tetro.shape)
     |> rotate(tetro.rotation)
-    |> move(tetro.position)
+
+    # |> move(tetro.position)
   end
 
   def new(:o) do

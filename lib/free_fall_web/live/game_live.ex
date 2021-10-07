@@ -2,6 +2,7 @@ defmodule FreeFallWeb.GameLive do
   # use FreeFallWeb, :live_view
   use Surface.LiveView
   alias FreeFall.Game.Tetro
+  alias FreeFall.Game.Shape
   alias FreeFallWeb.Live.Components.{Title, Button}
 
   @impl true
@@ -9,7 +10,7 @@ defmodule FreeFallWeb.GameLive do
     ~F"""
     <Title message={@title} id="title" />
     <pre>
-    { inspect @tetro }
+    { inspect Shape.from_tetro(@tetro) }
     </pre>
 
     <Button action="left" label="Left" id="left-button" />
