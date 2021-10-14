@@ -2,15 +2,15 @@ defmodule FreeFallWeb.GameLive do
   # use FreeFallWeb, :live_view
   use Surface.LiveView
   alias FreeFall.Game.Tetro
-  alias FreeFall.Game.Shape
-  alias FreeFallWeb.Live.Components.{Title, Button, Point}
+  alias FreeFall.Game
+  alias FreeFallWeb.Live.Components.{Title, Button, Point, Shape}
 
   @impl true
   def render(assigns) do
     ~F"""
     <Title message={@title} id="title" />
     <pre>
-    { inspect Shape.from_tetro(@tetro) }
+    { inspect Game.Shape.from_tetro(@tetro) }
     </pre>
 
     <Button action="left" label="Left" id="left-button" />
@@ -19,7 +19,8 @@ defmodule FreeFallWeb.GameLive do
 
 
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <Point x="1" y="1" color="red" id="hello"/>
+    <Point x={1} y={1} color="red" id="hello"/>
+    <Shape points={[{2, 2}, {3, 2}, {2, 3}, {3, 3}]} id="hola"/>
     </svg>
     """
   end

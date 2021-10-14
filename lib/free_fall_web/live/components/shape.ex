@@ -1,22 +1,19 @@
 defmodule FreeFallWeb.Live.Components.Shape do
   use Surface.LiveComponent
-  alias FreeFall.Game.Shape
   alias FreeFallWeb.Live.Components.Point
 
-  prop(tetro, :map, required: true)
-  prop(points, :list, required: false)
-  prop(position, :tuple, required: false)
-  data(point, :tuple)
+  prop(points, :list, required: true)
 
-  def mount(socket, %{position: position} = tetro) do
-    {:ok, assign(socket, position: position, points: Shape.from_tetro(tetro))}
+  def update(assigns, socket) do
+    IO.inspect("Rebellions are built on hope")
+    {:ok, assign(socket, points: assigns.points)}
   end
 
   def render(assigns) do
     ~F"""
-    <div>
-    inspect {#for point <- @points} {point} {/for}
-    </div>
+    {#for {x, y} <- @points}
+    <Point x={x} y={y} color="blue" id={"#{x}#{y}"} />
+    {/for}
     """
   end
 end

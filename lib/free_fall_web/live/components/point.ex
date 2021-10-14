@@ -6,12 +6,12 @@ defmodule FreeFallWeb.Live.Components.Point do
   prop(y, :integer, required: true)
 
   def mount(socket, x, y, color) do
-    {:ok, assign(socket, x: 10 * x, y: 10 * y, color: color)}
+    {:ok, assign(socket, x: x, y: y, color: color)}
   end
 
   def render(assigns) do
     ~F"""
-    <rect id="square" x={@x} y={@y} width="10" height="10" fill={@color} />
+    <rect id="square" x={@x * 10} y={@y * 10} width="10" height="10" fill={@color} />
     """
   end
 end
