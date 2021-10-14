@@ -3,7 +3,7 @@ defmodule FreeFallWeb.GameLive do
   use Surface.LiveView
   alias FreeFall.Game.Tetro
   alias FreeFall.Game.Shape
-  alias FreeFallWeb.Live.Components.{Title, Button}
+  alias FreeFallWeb.Live.Components.{Title, Button, Point}
 
   @impl true
   def render(assigns) do
@@ -17,11 +17,9 @@ defmodule FreeFallWeb.GameLive do
     <Button action="right" label="Right" id="right-button" />
     <Button action="rotate" label="Rotate" id="rotate-button" />
 
+
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <rect id="square" x="100" width="10" height="10" fill="red" />
-    <rect id="square" x="100" y="10" width="10" height="10" fill="red" />
-    <rect id="square" x="100" y="20" width="10" height="10" fill="red" />
-    <rect id="square" x="90" y="20" width="10" height="10" fill="red" />
+    <Point x="1" y="1" color="red" id="hello"/>
     </svg>
     """
   end
