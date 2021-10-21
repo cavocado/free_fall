@@ -18,15 +18,15 @@ defmodule FreeFallWeb.GameLive do
     <Button action="rotate" label="Rotate" id="rotate-button" />
 
 
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <Point x={1} y={1} color="red" id="hello"/>
-    <Shape points={[{2, 2}, {3, 2}, {2, 3}, {3, 3}]} id="hola"/>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"  style="background-color:black;">
+    <Shape points={Game.Shape.from_tetro(@tetro)} id="hola"/>
     </svg>
     """
   end
 
   @impl true
   def mount(_params, _session, socket) do
+    :timer.send_interval(:timer.seconds(2), self(), :down)
     {:ok, assign(socket, tetro: Tetro.new(:j), title: "Welcome to FreeFall!")}
   end
 
@@ -43,5 +43,10 @@ defmodule FreeFallWeb.GameLive do
   @impl true
   def handle_event("rotate", _value, %{assigns: %{tetro: tetro}} = socket) do
     {:noreply, assign(socket, tetro: Tetro.rotate(tetro))}
+  end
+
+  @impl true
+  def handle_info(:down, %{assigns: %{tetro: tetro}} = socket) do
+    {:noreply, assign(socket, tetro: Tetro.down(tetro))}
   end
 end

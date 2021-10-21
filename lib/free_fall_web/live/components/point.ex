@@ -11,7 +11,7 @@ defmodule FreeFallWeb.Live.Components.Point do
 
   def render(assigns) do
     ~F"""
-    <rect id="square" x={@x * 10} y={@y * 10} width="10" height="10" fill={@color} />
+    <rect id={"#{@x}#{@y}"} x={@x * 10} y={@y * 10} width="10" height="10" fill={@color} />
     """
   end
 end
