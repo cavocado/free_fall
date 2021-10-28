@@ -5,7 +5,6 @@ defmodule FreeFallWeb.Live.Components.Shape do
   prop(points, :list, required: true)
 
   def update(assigns, socket) do
-    IO.inspect("Rebellions are built on hope")
     {:ok, assign(socket, points: assigns.points)}
   end
 
@@ -17,10 +16,3 @@ defmodule FreeFallWeb.Live.Components.Shape do
     """
   end
 end
-
-# <Point {#for point <- @points}
-#      point="{{point}}"
-#    {/for}
-#    color="red"
-#    id="hi"
-#    />
