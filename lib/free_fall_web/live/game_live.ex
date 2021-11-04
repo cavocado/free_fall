@@ -32,12 +32,12 @@ defmodule FreeFallWeb.GameLive do
 
   @impl true
   def handle_event("left", _value, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: Tetro.left(tetro))}
+    {:noreply, assign(socket, tetro: maybe_move_left(tetro))}
   end
 
   @impl true
   def handle_event("right", _value, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: Tetro.right(tetro))}
+    {:noreply, assign(socket, tetro: maybe_move_right(tetro))}
   end
 
   @impl true
@@ -47,6 +47,45 @@ defmodule FreeFallWeb.GameLive do
 
   @impl true
   def handle_info(:down, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: Tetro.down(tetro))}
+    {:noreply, assign(socket, tetro: maybe_move_down(tetro))}
+  end
+
+  def maybe_move_left(tetro) do
+    points = Game.Shape.from_tetro(tetro)
+
+    case is_valid_left?(points) do
+      true -> Tetro.left(tetro)
+      false -> tetro
+    end
+  end
+
+  defp is_valid_left?(points) do
+    Enum.any?(points, fn {x, _y} -> x > 1 end)
+  end
+
+  def maybe_move_right(tetro) do
+    points = Game.Shape.from_tetro(tetro)
+
+    case is_valid_right?(points) do
+      true -> Tetro.right(tetro)
+      false -> tetro
+    end
+  end
+
+  defp is_valid_right?(points) do
+    Enum.any?(points, fn {x, _y} -> x < 10 - 1 end)
+  end
+
+  def maybe_move_down(tetro) do
+    points = Game.Shape.from_tetro(tetro)
+
+    case is_valid_down?(points) do
+      true -> Tetro.down(tetro)
+      false -> tetro
+    end
+  end
+
+  defp is_valid_down?(points) do
+    Enum.any?(points, fn {_x, y} -> y < 20 - 1 end)
   end
 end
