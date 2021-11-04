@@ -1,7 +1,7 @@
 defmodule FreeFallWeb.GameLive do
   # use FreeFallWeb, :live_view
   use Surface.LiveView
-  alias FreeFall.Game.Tetro
+  alias FreeFall.Game.{Tetro, Board}
   alias FreeFall.Game
   alias FreeFallWeb.Live.Components.{Title, Button, Point, Shape}
 
@@ -10,7 +10,7 @@ defmodule FreeFallWeb.GameLive do
     ~F"""
     <Title message={@title} id="title" />
     <pre>
-    { inspect Game.Shape.from_tetro(@tetro) }
+    { inspect @board }
     </pre>
 
     <Button action="left" label="Left" id="left-button" />
@@ -19,7 +19,8 @@ defmodule FreeFallWeb.GameLive do
 
 
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"  style="background-color:black;">
-    <Shape points={Game.Shape.from_tetro(@tetro)} id="hola"/>
+    <Shape points={Game.Shape.from_tetro(@board.tetro)} id="hola"/>
+    <Shape points={@board.graveyard} id="hallo"/>
     </svg>
     """
   end
@@ -27,65 +28,26 @@ defmodule FreeFallWeb.GameLive do
   @impl true
   def mount(_params, _session, socket) do
     :timer.send_interval(:timer.seconds(2), self(), :down)
-    {:ok, assign(socket, tetro: Tetro.new(:j), title: "Welcome to FreeFall!")}
+    {:ok, assign(socket, board: Board.new(Tetro.new(:j)), title: "Welcome to FreeFall!")}
   end
 
   @impl true
-  def handle_event("left", _value, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: maybe_move_left(tetro))}
+  def handle_event("left", _value, %{assigns: %{board: board}} = socket) do
+    {:noreply, assign(socket, board: Board.maybe_move_left(board))}
   end
 
   @impl true
-  def handle_event("right", _value, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: maybe_move_right(tetro))}
+  def handle_event("right", _value, %{assigns: %{board: board}} = socket) do
+    {:noreply, assign(socket, board: Board.maybe_move_right(board))}
   end
 
   @impl true
-  def handle_event("rotate", _value, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: Tetro.rotate(tetro))}
+  def handle_event("rotate", _value, %{assigns: %{board: board}} = socket) do
+    {:noreply, assign(socket, board: Board.rotate(board))}
   end
 
   @impl true
-  def handle_info(:down, %{assigns: %{tetro: tetro}} = socket) do
-    {:noreply, assign(socket, tetro: maybe_move_down(tetro))}
-  end
-
-  def maybe_move_left(tetro) do
-    points = Game.Shape.from_tetro(tetro)
-
-    case is_valid_left?(points) do
-      true -> Tetro.left(tetro)
-      false -> tetro
-    end
-  end
-
-  defp is_valid_left?(points) do
-    Enum.any?(points, fn {x, _y} -> x > 1 end)
-  end
-
-  def maybe_move_right(tetro) do
-    points = Game.Shape.from_tetro(tetro)
-
-    case is_valid_right?(points) do
-      true -> Tetro.right(tetro)
-      false -> tetro
-    end
-  end
-
-  defp is_valid_right?(points) do
-    Enum.any?(points, fn {x, _y} -> x < 10 - 1 end)
-  end
-
-  def maybe_move_down(tetro) do
-    points = Game.Shape.from_tetro(tetro)
-
-    case is_valid_down?(points) do
-      true -> Tetro.down(tetro)
-      false -> tetro
-    end
-  end
-
-  defp is_valid_down?(points) do
-    Enum.any?(points, fn {_x, y} -> y < 20 - 1 end)
+  def handle_info(:down, %{assigns: %{board: board}} = socket) do
+    {:noreply, assign(socket, board: Board.maybe_move_down(board))}
   end
 end
