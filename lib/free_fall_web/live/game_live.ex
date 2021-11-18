@@ -27,7 +27,7 @@ defmodule FreeFallWeb.GameLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    :timer.send_interval(:timer.seconds(2), self(), :down)
+    :timer.send_interval(:timer.seconds(1), self(), :down)
     {:ok, assign(socket, board: Board.new(Tetro.new(:j)), title: "Welcome to FreeFall!")}
   end
 

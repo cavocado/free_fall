@@ -1,9 +1,9 @@
 defmodule FreeFall.Game.Point do
-  def new(x, y), do: {x, y}
+  def new(x, y, color), do: {x, y, color}
 
-  def left({x, y}), do: {x - 1, y}
+  def left({x, y, color}), do: {x - 1, y, color}
 
-  def right({x, y}), do: {x + 1, y}
+  def right({x, y, color}), do: {x + 1, y, color}
 
   def down({x, y}), do: {x, y + 1}
 

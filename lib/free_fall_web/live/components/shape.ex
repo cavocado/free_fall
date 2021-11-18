@@ -10,8 +10,8 @@ defmodule FreeFallWeb.Live.Components.Shape do
 
   def render(assigns) do
     ~F"""
-    {#for {x, y} <- @points}
-    <Point x={x} y={y} color="blue" id={"#{x}#{y}"} />
+    {#for {x, y, color} <- @points}
+    <Point x={x} y={y} color={color} id={Ecto.UUID.generate} />
     {/for}
     """
   end
