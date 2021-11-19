@@ -1,5 +1,5 @@
 defmodule FreeFall.Game.Board do
-  @right_boundary 10
+  @right_boundary 20
   @left_boundary 1
   @bottom_boundary 20
 
@@ -63,7 +63,7 @@ defmodule FreeFall.Game.Board do
   def move_to_graveyard(%{tetro: old_tetro, graveyard: graveyard, score: score} = board) do
     %{
       board
-      | tetro: Tetro.new(),
+      | tetro: Tetro.new_random(),
         graveyard: graveyard ++ Shape.from_tetro(old_tetro),
         score: score + 1
     }
