@@ -18,7 +18,7 @@ defmodule FreeFallWeb.GameLive do
     <Button action="rotate" label="Rotate" id="rotate-button" />
 
 
-    <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg"  style="background-color:black;max-width:200px;">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"  style="background-color:black;max-width:200px;">
     <Shape points={Game.Shape.from_tetro(@board.tetro)} id="hola"/>
     <Shape points={@board.graveyard} id="hallo"/>
     </svg>

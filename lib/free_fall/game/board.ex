@@ -1,6 +1,6 @@
 defmodule FreeFall.Game.Board do
   @right_boundary 20
-  @left_boundary 1
+  @left_boundary 0
   @bottom_boundary 20
 
   alias FreeFall.Game.{Shape, Tetro}
@@ -27,7 +27,7 @@ defmodule FreeFall.Game.Board do
   end
 
   defp is_valid_left?(points) do
-    Enum.any?(points, fn {x, _y, _color} -> x > @left_boundary end)
+    Enum.all?(points, fn {x, _y, _color} -> x > @left_boundary end)
   end
 
   def maybe_move_right(%{tetro: tetro} = board) do
@@ -40,7 +40,7 @@ defmodule FreeFall.Game.Board do
   end
 
   defp is_valid_right?(points) do
-    Enum.any?(points, fn {x, _y, _color} -> x < @right_boundary - 1 end)
+    Enum.all?(points, fn {x, _y, _color} -> x < @right_boundary - 1 end)
   end
 
   def maybe_move_down(%{tetro: tetro} = board) do
@@ -53,7 +53,7 @@ defmodule FreeFall.Game.Board do
   end
 
   defp is_valid_down?(points) do
-    Enum.any?(points, fn {_x, y, _color} -> y < @bottom_boundary - 1 end)
+    Enum.all?(points, fn {_x, y, _color} -> y < @bottom_boundary - 1 end)
   end
 
   def rotate(%{tetro: tetro} = board) do
