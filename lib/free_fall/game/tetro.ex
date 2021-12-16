@@ -1,6 +1,8 @@
 defmodule FreeFall.Game.Tetro do
   defstruct shape: :l, position: {5, 1}, rotation: 0
 
+  @shapes [:l, :o, :j, :t, :s, :z, :i]
+
   alias FreeFall.Game.Point
 
   def new do
@@ -9,6 +11,10 @@ defmodule FreeFall.Game.Tetro do
 
   def new(shape) do
     %__MODULE__{shape: shape}
+  end
+
+  def new_random do
+    %__MODULE__{shape: Enum.random(@shapes)}
   end
 
   def down(tetro) do
