@@ -17,43 +17,62 @@ defmodule FreeFall.Game.Board do
     %__MODULE__{tetro: tetro}
   end
 
-  def maybe_move_left(%{tetro: tetro} = board) do
-    points = Shape.from_tetro(tetro)
+  def maybe_move_left(%{tetro: tetro, graveyard: graveyard} = board) do
+    new_points =
+      tetro
+      |> Tetro.left()
+      |> Shape.from_tetro()
 
-    case is_valid_left?(points) do
+    case is_valid_left?(new_points, graveyard) do
       true -> %{board | tetro: Tetro.left(tetro)}
       false -> board
     end
   end
 
-  defp is_valid_left?(points) do
-    Enum.all?(points, fn {x, _y, _color} -> x > @left_boundary end)
+  defp is_valid_left?(points, graveyard) do
+    Enum.all?(points, fn {x, _y, _color} -> x > @left_boundary - 1 end) and
+      !is_in_graveyard?(points, graveyard)
   end
 
-  def maybe_move_right(%{tetro: tetro} = board) do
-    points = Shape.from_tetro(tetro)
+  def maybe_move_right(%{tetro: tetro, graveyard: graveyard} = board) do
+    new_points =
+      tetro
+      |> Tetro.right()
+      |> Shape.from_tetro()
 
-    case is_valid_right?(points) do
+    case is_valid_right?(new_points, graveyard) do
       true -> %{board | tetro: Tetro.right(tetro)}
       false -> board
     end
   end
 
-  defp is_valid_right?(points) do
-    Enum.all?(points, fn {x, _y, _color} -> x < @right_boundary - 1 end)
+  defp is_valid_right?(points, graveyard) do
+    Enum.all?(points, fn {x, _y, _color} -> x < @right_boundary end) and
+      !is_in_graveyard?(points, graveyard)
   end
 
-  def maybe_move_down(%{tetro: tetro} = board) do
-    points = Shape.from_tetro(tetro)
+  def maybe_move_down(%{tetro: tetro, graveyard: graveyard} = board) do
+    new_points =
+      tetro
+      |> Tetro.down()
+      |> Shape.from_tetro()
 
-    case is_valid_down?(points) do
+    case is_valid_down?(new_points, graveyard) do
       true -> %{board | tetro: Tetro.down(tetro)}
       false -> move_to_graveyard(board)
     end
   end
 
-  defp is_valid_down?(points) do
-    Enum.all?(points, fn {_x, y, _color} -> y < @bottom_boundary - 1 end)
+  defp is_valid_down?(points, graveyard) do
+    Enum.all?(points, fn {_x, y, _color} -> y < @bottom_boundary end) and
+      !is_in_graveyard?(points, graveyard)
+  end
+
+  defp is_in_graveyard?(points, graveyard) do
+    # one enum = map to 2 tuple
+    new_graveyard = Enum.map(graveyard, fn {x, y, _color} -> {x, y} end)
+    # enum over the points and check in new graveyard
+    Enum.any?(points, fn {x, y, _color} -> Enum.member?(new_graveyard, {x, y}) end)
   end
 
   def rotate(%{tetro: tetro} = board) do
